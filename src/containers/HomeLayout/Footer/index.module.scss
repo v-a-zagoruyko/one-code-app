@@ -1,0 +1,55 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 16px 30px;
+  width: 100%;
+  background-color: $gray;
+
+  & * {
+    color: $white;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.footer__col {
+  flex: 1 1 25%;
+
+  @include mobile {
+    margin-bottom: 12px;
+    flex: 1 1 100%;
+  }
+
+  h6 {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  a {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+}
+
+.footer__disclaimer {
+  margin-top: 20px;
+
+  span {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+}

@@ -5,4 +5,42 @@
 body {
   position: relative;
   color: $black;
+  background-color: #f5f5f5;
+}
+
+.info-header {
+  margin-bottom: 4px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.info-html {
+  h4 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}
+
+.mobile-hide {
+  @include mobile {
+    display: none;
+  }
+}
+
+.desktop-hide {
+  @include no-mobile {
+    display: none;
+  }
 }
