@@ -3,7 +3,7 @@ import { Provider } from 'mobx-react';
 import { RootStore } from 'stores';
 import { Router } from './Router';
 
-// import './styles/global.scss';
+import './styles/global.scss';
 
 const rootStore = new RootStore() as any;
 
