@@ -26,6 +26,7 @@ export namespace Api {
       slug: string;
       title: string;
       price: number;
+      salePrice?: number;
       description?: string;
       isAvailable: boolean;
       sizes: Size[];
