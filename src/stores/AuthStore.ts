@@ -1,4 +1,4 @@
-import { observable, action, autorun } from 'mobx';
+import { observable, action, autorun, makeObservable } from 'mobx';
 import { authStructFlow, getDefaultStruct } from 'utils/struct';
 
 export class AuthStore {
@@ -9,6 +9,7 @@ export class AuthStore {
   constructor(stores: any) {
     this.root = stores;
     this.initRehydration();
+    makeObservable(this);
   }
 
   initRehydration = () => {

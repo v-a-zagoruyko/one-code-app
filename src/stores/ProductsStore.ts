@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import { getDefaultStruct } from 'utils/struct';
 import { Api } from 'types';
 
@@ -10,6 +10,7 @@ export class ProductsStore {
 
   constructor(stores: any) {
     this.root = stores;
+    makeObservable(this);
   }
 
   @action

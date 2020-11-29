@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import { getDefaultStruct } from 'utils/struct';
 import { Api } from 'types';
 
@@ -9,6 +9,7 @@ export class MetaStore {
 
   constructor(stores: any) {
     this.root = stores;
+    makeObservable(this);
   }
 
   @action
