@@ -25,8 +25,7 @@ export class ProductsStore {
   @action
   fetchProductsByCategories = async (id: string) => {
     await this.root.structFlow(this.productsStruct, {
-      // url: `/api/v0/products-by-category/${id}/`,
-      url: `/api/v0/products-by-category/`,
+      url: `/api/v0/products-by-category/?category_id=${id}`,
     });
 
     return this.productsStruct;
