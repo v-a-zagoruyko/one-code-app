@@ -12,7 +12,7 @@ export class ProductsStore {
     this.root = stores;
   }
 
-  @action.bound
+  @action
   fetchProduct = async (id: string) => {
     await this.root.structFlow(this.productStruct, {
       url: `/api/v0/product/${id}/`,
@@ -21,7 +21,7 @@ export class ProductsStore {
     return this.productStruct;
   };
 
-  @action.bound
+  @action
   fetchProductsByCategories = async (id: string) => {
     await this.root.structFlow(this.productsStruct, {
       // url: `/api/v0/products-by-category/${id}/`,

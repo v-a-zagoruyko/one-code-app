@@ -11,7 +11,7 @@ export class MetaStore {
     this.root = stores;
   }
 
-  @action.bound
+  @action
   fetchProductCategories = async () => {
     await this.root.structFlow(this.productCategoriesStruct, {
       url: `/api/v0/product-categories/`,

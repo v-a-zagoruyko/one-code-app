@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx';
-// import { camelize } from 'humps';
 import { authStructFlow, getDefaultStruct } from 'utils/struct';
 import { Api } from 'types';
 
@@ -12,7 +11,7 @@ export class ClientStore {
     this.root = stores;
   }
 
-  @action.bound
+  @action
   fetchClientInfo = async () => {
     await authStructFlow<Api.ClientInfo.Response>(
       this.clientInfoStruct,
