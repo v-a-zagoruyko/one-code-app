@@ -21,7 +21,7 @@
 
   &__logo {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
   }
 
@@ -51,6 +51,16 @@
 .nav__link {
   margin: 0 12px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
+  text-transform: uppercase;
+}
+
+.brand__link,
+.nav__link {
+  transition: opacity 0.2s linear;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }

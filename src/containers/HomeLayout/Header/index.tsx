@@ -1,38 +1,72 @@
 import React from 'react';
+import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
+import * as stores from 'stores';
 import styles from './index.module.scss';
 
 const cx = cn.bind(styles);
 
-export const Header = () => {
-  return (
-    <header className={cx('header')}>
-      <div className={cx('brand')}>
-        <Link className={cx('brand__logo')} to="/">
-          @MAG_NAME
-        </Link>
-        <div className={cx('brand__user')}>
-          <Link className={cx('brand__link', 'mobile-hide')} to="/">
-            Личный кабинет
+interface IProps {}
+
+interface IInjectedProps extends IProps {
+  metaStore: stores.MetaStore;
+}
+
+@inject('metaStore')
+@observer
+export class Header extends React.Component<IProps> {
+  injected = this.props as IInjectedProps;
+
+  componentDidMount() {
+    this.injected.metaStore.fetchProductCategories();
+  }
+
+  get renderNav() {
+    const { metaStore } = this.injected;
+    const { isFetching } = metaStore.productCategoriesStruct;
+    if (isFetching) {
+      return <div></div>;
+    }
+
+    const { data } = metaStore.productCategoriesStruct;
+    if (data) {
+      return (
+        <nav className={cx('nav')}>
+          {data.map(({ id, title, slug }) => (
+            <Link key={id} className={cx('nav__link')} to={`/shopping/${id}-${slug}`}>
+              {title}
+            </Link>
+          ))}
+        </nav>
+      );
+    }
+
+    return <div></div>;
+  }
+
+  render() {
+    return (
+      <header className={cx('header')}>
+        <div className={cx('brand')}>
+          <Link className={cx('brand__logo')} to="/">
+            1Code
           </Link>
-          <Link className={cx('brand__link')} to="/">
-            Вишлист
-          </Link>
-          <Link className={cx('brand__link')} to="/">
-            Корзина
-          </Link>
+          <div className={cx('brand__user')}>
+            <Link className={cx('brand__link', 'mobile-hide')} to="/">
+              Личный кабинет
+            </Link>
+            <Link className={cx('brand__link')} to="/">
+              Вишлист
+            </Link>
+            <Link className={cx('brand__link')} to="/">
+              Корзина
+            </Link>
+          </div>
         </div>
-      </div>
-      <nav className={cx('nav')}>
-        <Link className={cx('nav__link')} to="/">
-          Футболки
-        </Link>
-        <Link className={cx('nav__link')} to="/">
-          Худи
-        </Link>
-      </nav>
-      {/* <div className={cx('events')}></div> */}
-    </header>
-  );
-};
+        {this.renderNav}
+        {/* <div className={cx('events')}></div> */}
+      </header>
+    );
+  }
+}

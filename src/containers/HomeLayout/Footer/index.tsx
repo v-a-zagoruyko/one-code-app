@@ -13,7 +13,7 @@ export const Footer = () => {
           <h6>Способы оплаты</h6>
         </div>
         <div className={cx('footer__col')}>
-          <h6>Подпишитесь на @MAG_NAME</h6>
+          <h6>Подпишитесь на 1Code</h6>
         </div>
         <div className={cx('footer__col')}>
           <h6>Для клиентов</h6>
@@ -27,7 +27,7 @@ export const Footer = () => {
           <Link to="/customer/terms-and-conditions">Условия пользования</Link>
         </div>
         <div className={cx('footer__col')}>
-          <h6>О @MAG_NAME</h6>
+          <h6>О 1Code</h6>
           <Link to="/info/about">О нас</Link>
           <Link to="/info/locations">Адреса магазинов</Link>
           <Link to="/sitemap">Карта сайта</Link>
@@ -35,11 +35,10 @@ export const Footer = () => {
       </div>
       <div className={cx('footer__disclaimer')}>
         <span>
-          Официальный сайт @MAG_NAME. '@MAG_NAME' и логотип '@MAG_NAME' являются торговыми марками
-          @MAG_NAME UK Limited и зарегистрированы в многочисленных юрисдикционных системах по всему
-          миру.
+          Официальный сайт 1Code. '1Code' и логотип '1Code' являются торговыми марками 1Code UK
+          Limited и зарегистрированы в многочисленных юрисдикционных системах по всему миру.
         </span>
-        <span>© Copyright 2020 @MAG_NAME UK Limited. Все права защищены.</span>
+        <span>© Copyright 2020 1Code UK Limited. Все права защищены.</span>
       </div>
     </footer>
   );

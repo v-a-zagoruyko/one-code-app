@@ -3,6 +3,7 @@
 
 .container {
   padding: 40px 10%;
+  background-color: $bg-gray;
 
   @include mobile {
     padding: 40px 0;

@@ -1,0 +1,10 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.container {
+  padding: 40px 30px;
+
+  @include mobile {
+    padding: 40px 0;
+  }
+}
