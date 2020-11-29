@@ -58,9 +58,9 @@
 
 .brand__link,
 .nav__link {
-  transition: opacity 0.2s linear;
+  transition: opacity .2s linear;
 
   &:hover {
-    opacity: 0.75;
+    opacity: .75;
   }
 }

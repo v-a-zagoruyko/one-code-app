@@ -53,8 +53,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{js,jsx,ts,tsx,json,md}": [
       "prettier --write"
+    ],
+    "src/**/*.{css,scss}": [
+      "stylelint --fix"
     ]
   },
   "browserslist": {
