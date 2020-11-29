@@ -4,14 +4,10 @@ import styles from './index.module.scss';
 
 const cx = cn.bind(styles);
 
-interface IProps {
-  children?: React.ReactNode;
-}
-
-export const Default = ({ children }: IProps) => {
+export const Default = () => {
   return (
-    <div className={cx('container')}>
-      <h1>Not found</h1>
-    </div>
+    <>
+      <h1 className={cn('info-header')}>404</h1>
+    </>
   );
 };
