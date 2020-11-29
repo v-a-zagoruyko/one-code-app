@@ -2,6 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router-dom';
 import cn from 'classnames/bind';
+import { LoadingSkeleton } from 'components';
 import * as stores from 'stores';
 import styles from './index.module.scss';
 
@@ -25,7 +26,16 @@ export class Product extends React.Component<IProps> {
   }
 
   get renderPhotos() {
-    const { data: product } = this.props.productsStore.productStruct;
+    const { data: product, isFetching } = this.props.productsStore.productStruct;
+
+    if (isFetching) {
+      return (
+        <div className={cx('product-photos')}>
+          <LoadingSkeleton type="image" />
+          <LoadingSkeleton type="image" />
+        </div>
+      );
+    }
 
     return (
       <div className={cx('product-photos')}>
@@ -36,14 +46,41 @@ export class Product extends React.Component<IProps> {
     );
   }
 
-  render() {
-    const { data } = this.props.productsStore.productStruct;
+  get renderAction() {
+    const { data: product, isFetching } = this.props.productsStore.productStruct;
 
+    if (isFetching || !product) {
+      return (
+        <div className={cx('product-action')}>
+          <LoadingSkeleton type="title" />
+          <LoadingSkeleton type="paragraph" />
+        </div>
+      );
+    }
+
+    const { title, description, price, salePrice } = product;
+
+    return (
+      <div className={cx('product-action')}>
+        <h1>{title}</h1>
+        {description && <p>{description}</p>}
+        {(!salePrice || salePrice === 0) && <span>{price} ₽</span>}
+        {(salePrice || salePrice !== 0) && (
+          <span>
+            <s>{price} ₽</s>
+            {salePrice} ₽
+          </span>
+        )}
+      </div>
+    );
+  }
+
+  render() {
     return (
       <>
         <div className={cx('product-container')}>
           {this.renderPhotos}
-          <div className={cx('product-action')}></div>
+          {this.renderAction}
         </div>
         <div className={cx('product-info')}></div>
       </>
