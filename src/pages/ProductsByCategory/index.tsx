@@ -26,12 +26,13 @@ export class ProductsByCategory extends React.Component<IProps> {
   }
 
   render() {
-    const { productsStore } = this.props;
-    const { data } = productsStore.productsStruct;
+    const { data } = this.props.productsStore.productsStruct;
 
     return (
       <div className={cn('grid')}>
-        {data && data.map((product, idx) => <ProductCard key={idx} product={product} />)}
+        {data?.map((product, idx) => (
+          <ProductCard key={idx} product={product} />
+        ))}
       </div>
     );
   }

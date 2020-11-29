@@ -25,8 +25,7 @@ export class Product extends React.Component<IProps> {
   }
 
   get renderPhotos() {
-    const { productsStore } = this.props;
-    const { data: product } = productsStore.productStruct;
+    const { data: product } = this.props.productsStore.productStruct;
 
     return (
       <div className={cx('product-photos')}>
@@ -38,8 +37,7 @@ export class Product extends React.Component<IProps> {
   }
 
   render() {
-    const { productsStore } = this.props;
-    const { data: product } = productsStore.productStruct;
+    const { data } = this.props.productsStore.productStruct;
 
     return (
       <>

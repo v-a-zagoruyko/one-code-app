@@ -23,26 +23,17 @@ export class Header extends React.Component<IProps> {
   }
 
   get renderNav() {
-    const { metaStore } = this.injected;
-    const { isFetching } = metaStore.productCategoriesStruct;
-    if (isFetching) {
-      return <div></div>;
-    }
+    const { data } = this.injected.metaStore.productCategoriesStruct;
 
-    const { data } = metaStore.productCategoriesStruct;
-    if (data) {
-      return (
-        <nav className={cx('nav')}>
-          {data.map(({ id, title, slug }) => (
-            <Link key={id} className={cx('nav__link')} to={`/shopping/${id}-${slug}`}>
-              {title}
-            </Link>
-          ))}
-        </nav>
-      );
-    }
-
-    return <div></div>;
+    return (
+      <nav className={cx('nav')}>
+        {data?.map(({ id, title, slug }) => (
+          <Link key={id} className={cx('nav__link')} to={`/shopping/${id}-${slug}`}>
+            {title}
+          </Link>
+        ))}
+      </nav>
+    );
   }
 
   render() {
