@@ -1,0 +1,79 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.card {
+  position: relative;
+  padding-top: 400px;
+  width: 25%;
+  height: 515px;
+  display: block;
+  text-decoration: none;
+  background-color: $white;
+
+  & * {
+    color: $black;
+  }
+
+  &:hover .card__img--next {
+    opacity: 0;
+  }
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.card__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 325px;
+  height: 400px;
+  object-fit: cover;
+
+  @include mobile {
+    width: 100%;
+  }
+
+  &--next {
+    z-index: 2;
+    transition: opacity 0.2s linear;
+  }
+}
+
+.card__body {
+  padding: 18px 12px;
+}
+
+.card__title {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.card__description {
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.card__sizes {
+  margin-top: 4px;
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.card__price {
+  margin-top: 4px;
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.card__price span {
+  font-size: 12px;
+  font-weight: 700;
+}
