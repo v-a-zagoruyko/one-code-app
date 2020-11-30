@@ -21,7 +21,7 @@
 .product-action {
   padding: 0 24px;
 
-  & * {
+  & > * {
     color: $black;
   }
 
@@ -40,6 +40,7 @@
   
   span {
     margin-top: 14px;
+    margin-bottom: 20px;
     display: block;
     font-size: 20px;
     font-weight: 400;

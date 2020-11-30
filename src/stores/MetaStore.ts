@@ -5,12 +5,22 @@ import { Api } from 'types';
 export class MetaStore {
   private root: { [key: string]: any };
 
-  @observable productCategoriesStruct = getDefaultStruct<Api.Product.ProductCategories[]>();
+  @observable productCategoryStruct = getDefaultStruct<Api.Product.ProductCategory>();
+  @observable productCategoriesStruct = getDefaultStruct<Api.Product.ProductCategory[]>();
 
   constructor(stores: any) {
     this.root = stores;
     makeObservable(this);
   }
+
+  @action
+  fetchProductCategory = async (id: number | string) => {
+    await this.root.structFlow(this.productCategoryStruct, {
+      url: `/api/v0/product-categories/${id}/`,
+    });
+
+    return this.productCategoryStruct;
+  };
 
   @action
   fetchProductCategories = async () => {

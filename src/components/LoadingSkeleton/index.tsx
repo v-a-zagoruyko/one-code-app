@@ -10,7 +10,11 @@ export const LoadingSkeleton = ({ type }: IProps) => {
   }
 
   if (type === 'title') {
-    return <Skeleton height={50} />;
+    return (
+      <p style={{ width: '100%' }}>
+        <Skeleton height={50} />
+      </p>
+    );
   }
 
   if (type === 'paragraph') {

@@ -15,38 +15,70 @@ type TRouteParams = {
 
 interface IProps extends RouteComponentProps<TRouteParams> {
   productsStore: stores.ProductsStore;
+  metaStore: stores.MetaStore;
 }
 
-@inject('productsStore')
+@inject('productsStore', 'metaStore')
 @observer
 export class ProductsByCategory extends React.Component<IProps> {
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.productsStore.fetchProductsByCategories(id);
+  async componentDidMount() {
+    const { metaStore, productsStore, match, history } = this.props;
+    const { id, slug } = match.params;
+
+    await metaStore.fetchProductCategory(id);
+    const { data } = metaStore.productCategoryStruct;
+    if (data && data.slug !== slug) {
+      history.push(`/shopping/${id}-${data.slug}`);
+    }
+
+    productsStore.fetchProductsByCategories(id);
   }
 
-  componentDidUpdate(prevProps: IProps) {
-    const { id } = this.props.match.params;
+  async componentDidUpdate(prevProps: IProps) {
+    const { metaStore, productsStore, match, history } = this.props;
+    const { id, slug } = match.params;
 
     if (prevProps.match.params.id !== id) {
-      this.props.productsStore.fetchProductsByCategories(id);
+      await metaStore.fetchProductCategory(id);
+      const { data } = metaStore.productCategoryStruct;
+      if (data && data.slug !== slug) {
+        history.push(`/shopping/${id}-${data.slug}`);
+      }
+
+      productsStore.fetchProductsByCategories(id);
     }
   }
 
-  render() {
-    const { data, isFetching } = this.props.productsStore.productsStruct;
+  get renderInfo() {
+    const { data: category, isFetching } = this.props.metaStore.productCategoryStruct;
 
-    if (isFetching || !data) {
+    if (isFetching) {
       return (
-        <div className={cx('grid')}>
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
-          <LoadingSkeleton type="image" />
+        <>
+          <h1 className={cn('container__title')}>
+            <LoadingSkeleton type="title" />
+          </h1>
+          <p className={cn('container__description')}>
+            <LoadingSkeleton type="paragraph" />
+          </p>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <h1>{category?.title}</h1>
+        {category?.description && <p>{category?.description}</p>}
+      </>
+    );
+  }
+
+  get renderProducts() {
+    const { data: products, isFetching } = this.props.productsStore.productsStruct;
+
+    if (isFetching) {
+      return (
+        <div className={cx('product-photos')}>
           <LoadingSkeleton type="image" />
           <LoadingSkeleton type="image" />
         </div>
@@ -55,10 +87,19 @@ export class ProductsByCategory extends React.Component<IProps> {
 
     return (
       <div className={cn('grid')}>
-        {data?.map((product, idx) => (
+        {products?.map((product, idx) => (
           <ProductCard key={idx} product={product} />
         ))}
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <>
+        {this.renderInfo}
+        {this.renderProducts}
+      </>
     );
   }
 }

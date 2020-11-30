@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router-dom';
 import cn from 'classnames/bind';
-import { LoadingSkeleton } from 'components';
+import { Btn, LoadingSkeleton } from 'components';
 import * as stores from 'stores';
 import styles from './index.module.scss';
 
@@ -58,7 +58,7 @@ export class Product extends React.Component<IProps> {
       );
     }
 
-    const { title, description, price, salePrice } = product;
+    const { title, description, isAvailable, price, salePrice } = product;
 
     return (
       <div className={cx('product-action')}>
@@ -71,6 +71,33 @@ export class Product extends React.Component<IProps> {
             {salePrice} ₽
           </span>
         )}
+        <div className={cn('btn-group')}>
+          <Btn type="primary" isDisabled={isAvailable}>
+            Добавить в корзину
+          </Btn>
+          <Btn type="secondary">X</Btn>
+        </div>
+      </div>
+    );
+  }
+
+  get renderInfo() {
+    const { data: product, isFetching } = this.props.productsStore.productStruct;
+
+    if (isFetching) {
+      return (
+        <div className={cx('product-photos')}>
+          <LoadingSkeleton type="image" />
+          <LoadingSkeleton type="image" />
+        </div>
+      );
+    }
+
+    return (
+      <div className={cx('product-photos')}>
+        {product?.photos.map((src, idx) => (
+          <img key={idx} src={src} alt={`${product?.title} ${product?.description || ''}`} />
+        ))}
       </div>
     );
   }

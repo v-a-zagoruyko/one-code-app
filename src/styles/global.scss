@@ -39,6 +39,20 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.btn-group {
+  display: flex;
+  column-gap: 10px;
+
+  & > :last-child {
+    padding: 12px 14px;
+    min-width: auto;
+  }
 }
 
 .mobile-hide {

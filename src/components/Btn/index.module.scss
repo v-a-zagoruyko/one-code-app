@@ -1,0 +1,41 @@
+@import 'styles/variables';
+
+.btn {
+  padding: 12px 24px;
+  min-width: 64px;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  column-gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 4px;
+  background-color: transparent;
+  box-shadow: 0 2px 16px rgba(0,0,0,.08);
+  transition: opacity .2s linear, box-shadow .2s linear;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: .5 !important;
+  }
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,.16);
+    opacity: .95;
+  }
+
+  &--primary {
+    color: $white;
+    background-color: $black;
+  }
+  
+  &--secondary {
+    color: $black;
+    background-color: $white;
+  }
+}

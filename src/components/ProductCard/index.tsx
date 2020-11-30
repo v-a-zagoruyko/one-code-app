@@ -12,12 +12,12 @@ interface IProps {
 }
 
 export const ProductCard = ({ product }: IProps) => {
-  const { id, slug, title, description, price, sizes, photos } = product;
+  const { id, slug, title, description, isAvailable, price, salePrice, sizes, photos } = product;
   const sizes_string = sizes.map((x) => x.size).join(' ');
   const url = makeProductUrl(id, slug);
 
   return (
-    <Link className={cx('card')} to={url}>
+    <Link className={cx('card', { 'card--disabled': !isAvailable })} to={url}>
       {photos.length > 1 && (
         <img
           className={cx('card__img', 'card__img--next')}
@@ -30,9 +30,13 @@ export const ProductCard = ({ product }: IProps) => {
         <h6 className={cx('card__title')}>{title}</h6>
         {description && <p className={cx('card__description')}>{description}</p>}
         <span className={cx('card__sizes')}>{sizes_string}</span>
-        <span className={cx('card__price')}>
-          {price} <span>₽</span>
-        </span>
+        {(!salePrice || salePrice === 0) && <span className={cx('card__price')}>{price} ₽</span>}
+        {(salePrice || salePrice !== 0) && (
+          <span className={cx('card__price')}>
+            <s>{price} ₽</s>
+            {salePrice} ₽
+          </span>
+        )}
       </div>
     </Link>
   );

@@ -4,6 +4,8 @@
 .card {
   position: relative;
   padding-top: 400px;
+  min-width: 0;
+  max-width: 100%;
   width: 100%;
   height: 515px;
   display: block;
@@ -14,12 +16,12 @@
     color: $black;
   }
 
-  &:hover .card__img--next {
-    opacity: 0;
+  &--disabled {
+    opacity: .5 !important;
   }
 
-  @include mobile {
-    width: 100%;
+  &:hover .card__img--next {
+    opacity: 0;
   }
 }
 
@@ -31,10 +33,6 @@
   height: 400px;
   object-fit: cover;
 
-  @include mobile {
-    width: 100%;
-  }
-
   &--next {
     z-index: 2;
     transition: opacity .2s linear;
@@ -42,26 +40,35 @@
 }
 
 .card__body {
+  overflow: hidden;
   padding: 18px 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card__title {
-  display: block;
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 700;
   text-transform: uppercase;
+
+  @include mobile {
+    font-size: 18px;
+  }
 }
 
 .card__description {
-  display: block;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 300;
+
+  @include mobile {
+    font-size: 16px;
+  }
 }
 
 .card__sizes {
   margin-top: 4px;
   display: block;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -69,11 +76,11 @@
 .card__price {
   margin-top: 4px;
   display: block;
-  font-size: 15px;
-  font-weight: 700;
-}
+  font-size: 20px;
+  font-weight: 400;
 
-.card__price span {
-  font-size: 12px;
-  font-weight: 700;
+  & s {
+    margin-right: 20px;
+    opacity: .75;
+  }
 }

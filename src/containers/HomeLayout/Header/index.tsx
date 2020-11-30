@@ -2,6 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
+import { LoadingSkeleton } from 'components';
 import * as stores from 'stores';
 import styles from './index.module.scss';
 
@@ -23,7 +24,18 @@ export class Header extends React.Component<IProps> {
   }
 
   get renderNav() {
-    const { data } = this.injected.metaStore.productCategoriesStruct;
+    const { data, isFetching } = this.injected.metaStore.productCategoriesStruct;
+
+    if (isFetching || !data) {
+      return (
+        <div className={cx('nav')}>
+          <LoadingSkeleton type="title" />
+          <LoadingSkeleton type="title" />
+          <LoadingSkeleton type="title" />
+          <LoadingSkeleton type="title" />
+        </div>
+      );
+    }
 
     return (
       <nav className={cx('nav')}>
