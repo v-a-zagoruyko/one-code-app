@@ -4,10 +4,11 @@ export namespace Api {
   }
 
   export namespace Product {
-    export interface ProductCategories {
+    export interface ProductCategory {
       id: number;
       slug: string;
       title: string;
+      description?: string;
     }
 
     export interface Size {
