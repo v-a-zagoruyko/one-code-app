@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
-import { LoadingSkeleton } from 'components';
+import { Icon, LoadingSkeleton } from 'components';
 import * as stores from 'stores';
 import styles from './index.module.scss';
 
@@ -60,10 +60,10 @@ export class Header extends React.Component<IProps> {
               Личный кабинет
             </Link>
             <Link className={cx('brand__link')} to="/favourites">
-              Вишлист
+              <Icon icon="favourite" size="18" />
             </Link>
             <Link className={cx('brand__link')} to="/">
-              Корзина
+              <Icon icon="cart" size="18" />
             </Link>
           </div>
         </div>

@@ -41,12 +41,21 @@ export class ClientStore {
   };
 
   @action
-  toggleFavourites = async (id: number | string) => {
+  toggleFavourites = (id: number | string) => {
     const productId = Number(id);
     if (this.favouriteProductsId.includes(productId)) {
       this.favouriteProductsId.remove(productId);
+      return false;
     } else {
       this.favouriteProductsId.push(productId);
+      return true;
     }
+  };
+
+  @action
+  isProductInFavourites = (id: number | string) => {
+    const productId = Number(id);
+    console.log(this.favouriteProductsId.includes(productId));
+    return this.favouriteProductsId.includes(productId);
   };
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router-dom';
 import cn from 'classnames/bind';
-import { Btn, LoadingSkeleton } from 'components';
+import { Btn, Icon, LoadingSkeleton } from 'components';
 import * as stores from 'stores';
 import styles from './index.module.scss';
 
@@ -18,13 +18,31 @@ interface IProps extends RouteComponentProps<TRouteParams> {
   clientStore: stores.ClientStore;
 }
 
+interface IState {
+  isFavourite: boolean;
+}
+
 @inject('productsStore', 'clientStore')
 @observer
-export class Product extends React.Component<IProps> {
+export class Product extends React.Component<IProps, IState> {
+  state = {
+    isFavourite: false,
+  };
+
   componentDidMount() {
+    const { isProductInFavourites } = this.props.clientStore;
     const { id } = this.props.match.params;
     this.props.productsStore.fetchProduct(id);
+
+    const isFavourite = isProductInFavourites(id);
+    this.setState({ isFavourite });
   }
+
+  handleToggleFavourites = (id: number | string) => {
+    const { toggleFavourites } = this.props.clientStore;
+    const isFavourite = toggleFavourites(id);
+    this.setState({ isFavourite });
+  };
 
   get renderPhotos() {
     const { data: product, isFetching } = this.props.productsStore.productStruct;
@@ -48,7 +66,6 @@ export class Product extends React.Component<IProps> {
   }
 
   get renderAction() {
-    const { toggleFavourites } = this.props.clientStore;
     const { data: product, isFetching } = this.props.productsStore.productStruct;
 
     if (isFetching || !product) {
@@ -60,6 +77,7 @@ export class Product extends React.Component<IProps> {
       );
     }
 
+    const { isFavourite } = this.state;
     const { id, title, description, isAvailable, price, salePrice } = product;
 
     return (
@@ -75,10 +93,14 @@ export class Product extends React.Component<IProps> {
         )}
         <div className={cn('btn-group')}>
           <Btn type="primary" isDisabled={!isAvailable}>
+            <Icon icon="cart-add" />
             Добавить в корзину
           </Btn>
-          <Btn onClick={() => toggleFavourites(id)} type="secondary">
-            X
+          <Btn
+            onClick={() => this.handleToggleFavourites(id)}
+            type={isFavourite ? 'primary' : 'secondary'}
+          >
+            <Icon icon="favourite" />
           </Btn>
         </div>
       </div>
