@@ -1,4 +1,4 @@
-import { observable, action, makeObservable } from 'mobx';
+import { observable, action, autorun, makeObservable } from 'mobx';
 import { authStructFlow, getDefaultStruct } from 'utils/struct';
 import { Api } from 'types';
 
@@ -7,10 +7,23 @@ export class ClientStore {
   @observable clientInfoStruct = getDefaultStruct<Api.ClientInfo.Response>();
   @observable clientInfo: Api.ClientInfo.Response | undefined;
 
+  @observable favouriteProductsId = observable<number>([]);
+
   constructor(stores: any) {
     this.root = stores;
     makeObservable(this);
+    this.initRehydration();
   }
+
+  initRehydration = () => {
+    if (localStorage.getItem('favouriteProductsId')) {
+      this.favouriteProductsId = JSON.parse(localStorage.getItem('favouriteProductsId')!);
+    }
+
+    autorun(() => {
+      localStorage.setItem('favouriteProductsId', JSON.stringify(this.favouriteProductsId));
+    });
+  };
 
   @action
   fetchClientInfo = async () => {
@@ -25,5 +38,15 @@ export class ClientStore {
     );
     const { data } = this.clientInfoStruct;
     this.clientInfo = data;
+  };
+
+  @action
+  toggleFavourites = async (id: number | string) => {
+    const productId = Number(id);
+    if (this.favouriteProductsId.includes(productId)) {
+      this.favouriteProductsId.remove(productId);
+    } else {
+      this.favouriteProductsId.push(productId);
+    }
   };
 }

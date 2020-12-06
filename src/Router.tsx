@@ -7,6 +7,7 @@ import {
   TermsAndConditions,
   ProductsByCategory,
   Product,
+  Favourites,
 } from 'pages';
 import { AuthLayout, HomeLayout, InfoLayout, AppRoute } from 'containers';
 import { history } from 'utils/history';
@@ -15,6 +16,13 @@ export const Router = () => (
   <ReactRouter history={history}>
     <Switch>
       <AppRoute path="/" exact layout={HomeLayout} component={Main} access="public" />
+      <AppRoute
+        path="/favourites"
+        exact
+        layout={HomeLayout}
+        component={Favourites}
+        access="public"
+      />
       <AppRoute
         path="/shopping/:id-:slug"
         exact

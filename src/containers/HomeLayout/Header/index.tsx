@@ -59,7 +59,7 @@ export class Header extends React.Component<IProps> {
             <Link className={cx('brand__link', 'mobile-hide')} to="/">
               Личный кабинет
             </Link>
-            <Link className={cx('brand__link')} to="/">
+            <Link className={cx('brand__link')} to="/favourites">
               Вишлист
             </Link>
             <Link className={cx('brand__link')} to="/">
