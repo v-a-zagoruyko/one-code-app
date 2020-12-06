@@ -55,7 +55,6 @@ export class ClientStore {
   @action
   isProductInFavourites = (id: number | string) => {
     const productId = Number(id);
-    console.log(this.favouriteProductsId.includes(productId));
     return this.favouriteProductsId.includes(productId);
   };
 }
