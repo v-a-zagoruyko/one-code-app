@@ -54,22 +54,24 @@ export class ProductsByCategory extends React.Component<IProps> {
 
     if (isFetching) {
       return (
-        <>
-          <h1 className={cn('container__title')}>
+        <div className={cx('category-info')}>
+          <h1 className={cx('category-info__title')}>
             <LoadingSkeleton type="title" />
           </h1>
-          <p className={cn('container__description')}>
+          <p className={cx('category-info__description')}>
             <LoadingSkeleton type="paragraph" />
           </p>
-        </>
+        </div>
       );
     }
 
     return (
-      <>
-        <h1>{category?.title}</h1>
-        {category?.description && <p>{category?.description}</p>}
-      </>
+      <div className={cx('category-info')}>
+        <h1 className={cx('category-info__title')}>{category?.title}</h1>
+        {category?.description && (
+          <p className={cx('category-info__description')}>{category?.description}</p>
+        )}
+      </div>
     );
   }
 
@@ -78,7 +80,7 @@ export class ProductsByCategory extends React.Component<IProps> {
 
     if (isFetching) {
       return (
-        <div className={cx('product-photos')}>
+        <div className={cx('grid')}>
           <LoadingSkeleton type="image" />
           <LoadingSkeleton type="image" />
         </div>
