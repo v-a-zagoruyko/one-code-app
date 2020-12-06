@@ -1,0 +1,23 @@
+@import 'styles/mixins';
+
+.category-info {
+  margin-bottom: 24px;
+  text-align: center;
+
+  &__title {
+    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__description {
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 300;
+
+    @include no-mobile {
+      width: 50%;
+    }
+  }
+}

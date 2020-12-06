@@ -15,9 +15,10 @@ type TRouteParams = {
 
 interface IProps extends RouteComponentProps<TRouteParams> {
   productsStore: stores.ProductsStore;
+  clientStore: stores.ClientStore;
 }
 
-@inject('productsStore')
+@inject('productsStore', 'clientStore')
 @observer
 export class Product extends React.Component<IProps> {
   componentDidMount() {
@@ -47,6 +48,7 @@ export class Product extends React.Component<IProps> {
   }
 
   get renderAction() {
+    const { toggleFavourites } = this.props.clientStore;
     const { data: product, isFetching } = this.props.productsStore.productStruct;
 
     if (isFetching || !product) {
@@ -58,7 +60,7 @@ export class Product extends React.Component<IProps> {
       );
     }
 
-    const { title, description, isAvailable, price, salePrice } = product;
+    const { id, title, description, isAvailable, price, salePrice } = product;
 
     return (
       <div className={cx('product-action')}>
@@ -72,10 +74,12 @@ export class Product extends React.Component<IProps> {
           </span>
         )}
         <div className={cn('btn-group')}>
-          <Btn type="primary" isDisabled={isAvailable}>
+          <Btn type="primary" isDisabled={!isAvailable}>
             Добавить в корзину
           </Btn>
-          <Btn type="secondary">X</Btn>
+          <Btn onClick={() => toggleFavourites(id)} type="secondary">
+            X
+          </Btn>
         </div>
       </div>
     );
